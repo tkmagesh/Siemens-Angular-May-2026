@@ -9,15 +9,35 @@
                 let d = document.getElementById('divGreet');
                 d.innerText = 'Hello there!'
             }
+
+            function onTxtExampleInput(event){
+                console.dir(event)
+            }
+
+            function onBtnExampleClick(event){
+                console.log(event.target.innerText)
+            }
             function onDocLoad(){
                 let d = document.getElementById('divGreet');
                 d.addEventListener('click', onDivClick)
+
+                let t = document.getElementById('txtExample');
+                t.addEventListener('input', onTxtExampleInput)
+
+                let b = document.getElementById('btnExample');
+                b.addEventListener('click', onBtnExampleClick)
+
+                let b2 = document.getElementById('btnExample2');
+                b2.addEventListener('click', onBtnExampleClick)
             }
             window.addEventListener('load', onDocLoad)
         </script>
     </head>
     <body>
         <h1>DOM Basics</h1>
+        <input type="text" name="" id="txtExample">
+        <button id="btnExample">Click Me</button>
+        <button id="btnExample2">Click Me - 2</button>
         <div id="divGreet">Hi there!</div>
     </body>
 </html>

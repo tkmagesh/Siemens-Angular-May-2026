@@ -22,12 +22,14 @@ export class Greeter {
 
   // using signals
 
-  firstName = signal("Magesh")
-  lastName = signal("Kuppan")
+  firstName = signal("")
+  lastName = signal("")
   message = signal("Have a good day!")
 
   messageLength = computed(() => this.message().length)
-  
+
+  selected = signal(false);
+
   onBtnClearClick() {
     console.log('clear button clicked')
     this.message.update((s:string) => '')
