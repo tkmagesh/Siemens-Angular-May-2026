@@ -1,6 +1,12 @@
 <h3>Greeter</h3>
 <hr>
-<div>{{firstName}} {{lastName}}</div>
-<div>{{message}}</div>
+<div>{{firstName()}} {{lastName()}}</div>
+<div>
+<span>{{message()}}</span>
+<span>[ {{messageLength()}} ]</span>
+</div>
+
+<button (click)="onPersonalClick()">Make It Personal</button>
 <button (click)="onBtnClearClick()">Clear</button>
+
 

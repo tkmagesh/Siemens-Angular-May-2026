@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, Signal, signal } from '@angular/core';
 
 @Component({
   selector: 'app-greeter',
@@ -7,13 +7,33 @@ import { Component } from '@angular/core';
   styleUrl: './greeter.css',
 })
 export class Greeter {
-  firstName : string = "Magesh"
-  lastName : string = "Kuppan"
+  
+  /* 
+  firstName = "Magesh"
+  lastName = "Kuppan"
+
   message : string = "Have a good day!"
 
   onBtnClearClick(){
     // console.log('clear button clicked')
     this.message = '';
+  } 
+  */
+
+  // using signals
+
+  firstName = signal("Magesh")
+  lastName = signal("Kuppan")
+  message = signal("Have a good day!")
+
+  messageLength = computed(() => this.message().length)
+  
+  onBtnClearClick() {
+    console.log('clear button clicked')
+    this.message.update((s:string) => '')
   }
 
+  onPersonalClick(){
+    this.message.update((s: string) => `${this.firstName()} ${this.lastName()} , Have a nice day!`)
+  }
 }
