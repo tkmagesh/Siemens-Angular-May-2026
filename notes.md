@@ -18,3 +18,29 @@
 
 ## Repository
 - https://github.com/tkmagesh/siemens-angular-may-2026
+
+## Angular
+- Framework for building Single Page Applications (SPA)
+
+### Building Blocks
+- Modules
+    - Logical encapsulation of related entities
+    - Ability to expose only public entities
+    - Dependency Injection Capabilities
+- Components
+    - Encapsulation
+        - Presentation
+        - User Interaction Behavior
+        - UI State
+    - Can be composed
+- Directives
+    - DOM Manipulation logic
+- Pipes
+    - Data Transformation logic FOR PRESENTATION
+- Services
+    - Non UI Responsibilities
+- Signals
+    - Change Detection of State
+
+Node
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DOM Basics</title>
+        <script src="jquery-4.0.0.js"></script>
+        <script>
+            $(function(){
+                function onBtnClick(){
+                    $('#divGreet')
+                        .text('Hello there!')
+                }
+                $('#btnGreet').click(onBtnClick)
+            })
+        </script>
+    </head>
+    <body>
+        <h1>DOM Basics</h1>
+        <button id="btnGreet">Greet</button>
+        <div id="divGreet">Hi there!</div>
+    </body>
+</html>
