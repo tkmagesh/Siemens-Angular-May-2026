@@ -14,4 +14,5 @@ import { Products } from "./products/products";
 })
 export class App {
   protected readonly title = signal('first-app');
+  userSelection = signal('');
 }

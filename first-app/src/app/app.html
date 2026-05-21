@@ -182,11 +182,30 @@
       margin-block: 1.5rem;
     }
   }
+
+  .hide {
+    display: none;
+  }
 </style>
 
   <h1>Angular Examples</h1>
-  <app-greeter></app-greeter>
-  <app-products></app-products>
+  <button (click)="userSelection.set($any($event.target).innerText)">Greeter</button>
+  <button (click)="userSelection.set($any($event.target).innerText)">Products</button>
+  
+  @if (userSelection() === 'Greeter') {
+    <app-greeter></app-greeter>
+  } @else if (userSelection() === 'Products') {
+    <app-products></app-products>
+  } @else {
+    <div>Make your choice!</div>
+  } 
+ 
+  <!-- 
+  <app-greeter [class]="userSelection() !== 'Greeter' ? 'hide' : ''"></app-greeter>
+  <app-products [class]="userSelection() !== 'Products' ? 'hide' : ''"></app-products>
+  <div [class]="userSelection() !== '' ? 'hide' : ''">Make your choice!</div> 
+  -->
+  
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
