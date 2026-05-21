@@ -1,23 +1,30 @@
 <h3>Greeter</h3>
 <hr>
-<input type="text" (input)="firstName.set($any($event.target).value)">
-<input type="text" #lastNameRef (input)="lastName.set(lastNameRef.value)">
-<div>
-    {{firstName()}}
-    {{lastName()}}
-</div>
-<div>
-<span>{{message()}}</span>
-<span>[ {{messageLength()}} ]</span>
-</div>
-
-<button (click)="onPersonalClick()">Make It Personal</button>
-<button (click)="onBtnClearClick()">Clear</button>
-<br>
 <input type="checkbox" 
     (input)="selected.set($any($event.target).checked)"
     [checked]="selected()"
 > 
-<span>Selected ? : {{selected()}}</span>
+<span>Show</span>
+
+@if (selected()) {
+    <div>
+        <input type="text" (input)="firstName.set($any($event.target).value)">
+        <input type="text" #lastNameRef (input)="lastName.set(lastNameRef.value)">
+        <div>
+            {{firstName()}}
+            {{lastName()}}
+        </div>
+        <div>
+        <span>{{message()}}</span>
+        <span>[ {{messageLength()}} ]</span>
+        </div>
+
+        <button (click)="onPersonalClick()">Make It Personal</button>
+        <button (click)="onBtnClearClick()">Clear</button>
+        <br>
+    </div>
+} @else {
+    <div>Nothing is see here!</div>
+}
 
 
