@@ -121,7 +121,7 @@ export class Products {
   newProductName = signal('')
   currPage = signal(1)
   pageSize = signal(10);
-  totalPages = this.productNames().length / this.pageSize()
+  totalPages = computed(() => this.productNames().length % this.pageSize() === 0 ? Math.floor(this.productNames().length / this.pageSize()) : Math.floor(this.productNames().length / this.pageSize()) + 1)
   pageStart = computed(() => ((this.currPage() - 1) * this.pageSize()))
   pageEnd = computed(() => (this.currPage() * this.pageSize()) - 1)
 

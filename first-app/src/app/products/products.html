@@ -14,7 +14,7 @@
         <li>{{product.name}}</li>
     }
 </ul>
-<div>Page # : {{currPage()}}</div>
+<div>Page # : {{currPage()}}, Total Pages : {{totalPages()}}</div>
 <label>Page Size :</label>
 <select (input)="pageSize.set($any($event.target).value)">
     <option value="10">10</option>
@@ -23,5 +23,5 @@
     <option value="25">25</option>
 </select>
 
-<button (click)="currPage.set(currPage() - 1)">Prev</button>
-<button (click)="currPage.set(currPage() + 1)">Next</button>
+<button [disabled]="currPage() === 1" (click)="currPage.set(currPage() - 1)">Prev</button>
+<button [disabled]="currPage() === totalPages()" (click)="currPage.set(currPage() + 1)">Next</button>
