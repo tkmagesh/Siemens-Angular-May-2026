@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-products',
@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './products.css',
 })
 export class Products {
-  productNames = ['Pen', 'Pencil', 'Marker', 'Stylus']
+  productNames = signal<string[]>([])
+  newProductName = signal('')
+  onAddClick(){
+    this.productNames.update(pns => [...pns, this.newProductName()])
+    this.newProductName.update(() => '')
+  }
 }

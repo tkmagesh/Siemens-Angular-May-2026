@@ -1,8 +1,16 @@
 <h3>Products</h3>
 <hr>
-<div><label for="">New Product :</label><input type="text" name="" id=""><button>Add</button></div>
+<div>
+    <label for="">New Product :</label>
+    <input 
+        type="text" 
+        [value]="newProductName()" 
+        (input)="newProductName.set($any($event.target).value)"
+    >
+    <button (click)="onAddClick()">Add</button>
+</div>
 <ul>
-    @for (productName of productNames; track productName){
+    @for (productName of productNames(); track productName){
         <li>{{productName}}</li>
     }
 </ul>
