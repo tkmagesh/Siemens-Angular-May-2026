@@ -1,5 +1,22 @@
 <h3>Greeter</h3>
 <hr>
+<div>
+    <table style="border: 1px solid grey;">
+        <tr>
+            <td>Attribute</td>
+            <td>Value</td>
+        </tr>
+        @for (item of (emp | keyvalue); track item.key) {
+            <tr>
+                <td>{{item.key}}</td>
+                <td>{{item.value}}</td>
+            </tr>
+        }
+        
+    </table>
+</div>
+
+
 <input type="checkbox" 
     (input)="selected.set($any($event.target).checked)"
     [checked]="selected()"
@@ -15,7 +32,7 @@
             {{lastName()}}
         </div>
         <div>
-        <span>{{message()}}</span>
+        <span>{{message() | uppercase}}</span>
         <span>[ {{messageLength()}} ]</span>
         </div>
 

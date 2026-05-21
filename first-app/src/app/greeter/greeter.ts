@@ -1,8 +1,9 @@
-import { Component, computed, Signal, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
+import { UpperCasePipe, JsonPipe, KeyValuePipe } from "@angular/common";
 
 @Component({
   selector: 'app-greeter',
-  imports: [],
+  imports: [UpperCasePipe, JsonPipe, KeyValuePipe],
   templateUrl: './greeter.html',
   styleUrl: './greeter.css',
 })
@@ -29,6 +30,12 @@ export class Greeter {
   messageLength = computed(() => this.message().length)
 
   selected = signal(false);
+
+  emp = {
+    id : 100,
+    name : 'Magesh',
+    salary : 10000
+  }
 
   onBtnClearClick() {
     console.log('clear button clicked')

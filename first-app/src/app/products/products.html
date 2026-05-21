@@ -10,7 +10,18 @@
     <button (click)="onAddClick()">Add</button>
 </div>
 <ul>
-    @for (productName of productNames(); track productName){
-        <li>{{productName}}</li>
+    @for (product of (productNames() | slice:pageStart():pageEnd()); track product.id){
+        <li>{{product.name}}</li>
     }
 </ul>
+<div>Page # : {{currPage()}}</div>
+<label>Page Size :</label>
+<select (input)="pageSize.set($any($event.target).value)">
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+    <option value="25">25</option>
+</select>
+
+<button (click)="currPage.set(currPage() - 1)">Prev</button>
+<button (click)="currPage.set(currPage() + 1)">Next</button>
