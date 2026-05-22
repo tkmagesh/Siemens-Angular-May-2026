@@ -1,13 +1,20 @@
 import { Component, computed, signal, effect } from '@angular/core';
-import { SlicePipe } from "@angular/common";
+import { SlicePipe, JsonPipe } from "@angular/common";
+
+interface Product  {
+  id : string;
+  name : string;
+  category : string;
+}
+
 @Component({
   selector: 'app-products',
-  imports: [SlicePipe],
+  imports: [SlicePipe, JsonPipe],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
 export class Products {
-  productNamesList = signal<{id : string, name: string, category : string}[]>([
+  productNamesList = signal<Product[]>([
     // Electronics & Gadgets
     { id: "prod-001", name: "QuantumX Wireless Earbuds", category: "Electronics" },
     { id: "prod-002", name: "SonicWave Bluetooth Speaker", category: "Electronics" },
@@ -129,7 +136,8 @@ export class Products {
 
   
 
-  newProductName = signal('')
+  newProduct = signal<Product>({ id: '', name: '', category: ''})
+
   // category based filtering
   categoriesList = this.productNames().reduce((s, p) => s.add(p.category), new Set())
   
@@ -149,7 +157,7 @@ export class Products {
   }
 
   onAddClick(){
-    // this.productNames.update(pns => [...pns, this.newProductName()])
-    this.newProductName.update(() => '')
+    this.newProduct.update(p => ({...p, id : `prod-${this.productNamesList().length + 1}`}))
+    this.productNamesList.update(list => [...list, this.newProduct()])
   }
 }

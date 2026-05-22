@@ -1,38 +1,77 @@
 <h3>Products</h3>
 <hr>
-<div class="new-product">
+<div class="product-section">
+    <h3>
+        Product Stats
+    </h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Category </th>
+                <th>Products #</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Electroics</td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td>Home & Appliances</td>
+                <td>20</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="product-section">
     <h3>Add New</h3>
-    <label>New Product :</label>
+    <label>Product Name :</label>
     <input 
         type="text" 
-        [value]="newProductName()" 
-        (input)="newProductName.set($any($event.target).value)"
+        [value]="newProduct().name" 
+        (input)="newProduct.update(p => ({...p, name : $any($event.target).value}))"
     >
-    <button (click)="onAddClick()">Add</button>
-</div>
-<div>
-    <label >Filter by Category</label>
-    <select (input)="selectedCategory.set($any($event.target).value)">
-        <option value="">-- Select --</option>
+    <label> Category :</label>
+    <select 
+        (input)="newProduct.update(p => ({...p, category : $any($event.target).value}))"
+    >
+
+        <option value="" [selected]="newProduct().category === ''">-- Select --</option>
         @for (category of categoriesList; track category) {
-            <option [value]=category>{{category}}</option>
+            <option [value]=category [selected]="newProduct().category === category">{{category}}</option>
         }
     </select>
+    <button (click)="onAddClick()">Add</button>
+    <button (click)="newProduct.update(() => ({id : '', name : '', category : ''}))">Clear</button>
 </div>
 
-<ul>
-    @for (product of (productNames() | slice:pageStart():pageEnd()); track product.id){
-        <li>{{product.name}} - [{{product.category}}]</li>
-    }
-</ul>
-<div>Page # : {{currPage()}}, Total Pages : {{totalPages()}}</div>
-<label>Page Size :</label>
-<select (input)="pageSize.set($any($event.target).value)">
-    <option value="10">10</option>
-    <option value="15">15</option>
-    <option value="20">20</option>
-    <option value="25">25</option>
-</select>
+<div class="product-section">
+    <div>
+        <label >Filter by Category</label>
+        <select (input)="selectedCategory.set($any($event.target).value)">
+            <option value="">-- Select --</option>
+            @for (category of categoriesList; track category) {
+                <option [value]=category>{{category}}</option>
+            }
+        </select>
+    </div>
 
-<button [disabled]="currPage() === 1" (click)="currPage.set(currPage() - 1)">Prev</button>
-<button [disabled]="currPage() === totalPages()" (click)="currPage.set(currPage() + 1)">Next</button>
+    <ul>
+        @for (product of (productNames() | slice:pageStart():pageEnd()); track product.id){
+            <li>{{product.name}} - [{{product.category}}]</li>
+        }
+    </ul>
+    <div>Page # : {{currPage()}}, Total Pages : {{totalPages()}}</div>
+    <label>Page Size :</label>
+    <select (input)="pageSize.set($any($event.target).value)">
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+    </select>
+
+    <button [disabled]="currPage() === 1" (click)="currPage.set(currPage() - 1)">Prev</button>
+    <button [disabled]="currPage() === totalPages()" (click)="currPage.set(currPage() + 1)">Next</button>
+</div>
