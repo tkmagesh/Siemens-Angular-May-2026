@@ -11,12 +11,17 @@
 </div>
 <div>
     <label >Filter by Category</label>
-    <select name="" id=""></select>
+    <select (input)="selectedCategory.set($any($event.target).value)">
+        <option value="">-- Select --</option>
+        @for (category of categoriesList; track category) {
+            <option [value]=category>{{category}}</option>
+        }
+    </select>
 </div>
 
 <ul>
     @for (product of (productNames() | slice:pageStart():pageEnd()); track product.id){
-        <li>{{product.name}}</li>
+        <li>{{product.name}} - [{{product.category}}]</li>
     }
 </ul>
 <div>Page # : {{currPage()}}, Total Pages : {{totalPages()}}</div>

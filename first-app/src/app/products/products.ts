@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, effect } from '@angular/core';
 import { SlicePipe } from "@angular/common";
 @Component({
   selector: 'app-products',
@@ -7,7 +7,7 @@ import { SlicePipe } from "@angular/common";
   styleUrl: './products.css',
 })
 export class Products {
-  productNames = signal<{id : string, name: string, category : string}[]>([
+  productNamesList = signal<{id : string, name: string, category : string}[]>([
     // Electronics & Gadgets
     { id: "prod-001", name: "QuantumX Wireless Earbuds", category: "Electronics" },
     { id: "prod-002", name: "SonicWave Bluetooth Speaker", category: "Electronics" },
@@ -118,12 +118,35 @@ export class Products {
     { id: "prod-099", name: "FocusNutra Nootropic Capsules", category: "Fitness & Outdoors" },
     { id: "prod-100", name: "ZenMint Organic Herbal Tea", category: "Fitness & Outdoors" }
   ])
+  selectedCategory = signal('')
+  
+
+  productNames = computed( () => 
+    this.selectedCategory() !== '' 
+    ? this.productNamesList().filter(p => p.category === this.selectedCategory())
+    : this.productNamesList()
+  );
+
+  
+
   newProductName = signal('')
+  // category based filtering
+  categoriesList = this.productNames().reduce((s, p) => s.add(p.category), new Set())
+  
+
+  // pagination
   currPage = signal(1)
   pageSize = signal(10);
   totalPages = computed(() => this.productNames().length % this.pageSize() === 0 ? Math.floor(this.productNames().length / this.pageSize()) : Math.floor(this.productNames().length / this.pageSize()) + 1)
   pageStart = computed(() => ((this.currPage() - 1) * this.pageSize()))
   pageEnd = computed(() => (this.currPage() * this.pageSize()) - 1)
+
+  constructor(){
+    effect(() => {
+      console.log(`current page : ${this.currPage()}`)
+      console.log(`selected category : "${this.selectedCategory()}"`)
+    })
+  }
 
   onAddClick(){
     // this.productNames.update(pns => [...pns, this.newProductName()])

@@ -1,9 +1,9 @@
 import { Component, computed, signal } from '@angular/core';
-import { UpperCasePipe, JsonPipe, KeyValuePipe } from "@angular/common";
+import { UpperCasePipe, KeyValuePipe } from "@angular/common";
 
 @Component({
   selector: 'app-greeter',
-  imports: [UpperCasePipe, JsonPipe, KeyValuePipe],
+  imports: [UpperCasePipe, KeyValuePipe],
   templateUrl: './greeter.html',
   styleUrl: './greeter.css',
 })
