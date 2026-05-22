@@ -11,8 +11,7 @@ import { Child } from './composition/child';
     RouterOutlet,
     Greeter,
     Products,
-    Parent,
-    Child
+    Parent
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

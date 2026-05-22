@@ -1,77 +1,11 @@
 <h3>Products</h3>
 <hr>
-<div class="product-section">
-    <h3>
-        Product Stats
-    </h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Category </th>
-                <th>Products #</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Electroics</td>
-                <td>20</td>
-            </tr>
-            <tr>
-                <td>Home & Appliances</td>
-                <td>20</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-
-<div class="product-section">
-    <h3>Add New</h3>
-    <label>Product Name :</label>
-    <input 
-        type="text" 
-        [value]="newProduct().name" 
-        (input)="newProduct.update(p => ({...p, name : $any($event.target).value}))"
-    >
-    <label> Category :</label>
-    <select 
-        (input)="newProduct.update(p => ({...p, category : $any($event.target).value}))"
-    >
-
-        <option value="" [selected]="newProduct().category === ''">-- Select --</option>
-        @for (category of categoriesList; track category) {
-            <option [value]=category [selected]="newProduct().category === category">{{category}}</option>
-        }
-    </select>
-    <button (click)="onAddClick()">Add</button>
-    <button (click)="newProduct.update(() => ({id : '', name : '', category : ''}))">Clear</button>
-</div>
-
-<div class="product-section">
-    <div>
-        <label >Filter by Category</label>
-        <select (input)="selectedCategory.set($any($event.target).value)">
-            <option value="">-- Select --</option>
-            @for (category of categoriesList; track category) {
-                <option [value]=category>{{category}}</option>
-            }
-        </select>
-    </div>
-
-    <ul>
-        @for (product of (productNames() | slice:pageStart():pageEnd()); track product.id){
-            <li>{{product.name}} - [{{product.category}}]</li>
-        }
-    </ul>
-    <div>Page # : {{currPage()}}, Total Pages : {{totalPages()}}</div>
-    <label>Page Size :</label>
-    <select (input)="pageSize.set($any($event.target).value)">
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-        <option value="25">25</option>
-    </select>
-
-    <button [disabled]="currPage() === 1" (click)="currPage.set(currPage() - 1)">Prev</button>
-    <button [disabled]="currPage() === totalPages()" (click)="currPage.set(currPage() + 1)">Next</button>
-</div>
+<app-products-stats [products]="svc.productNamesList()"></app-products-stats>
+<app-product-editor 
+    [categories]="svc.categoriesList"
+    (create)="onProductCreated($event)"
+></app-product-editor>
+<app-products-list 
+    [list]="svc.productNamesList()" 
+    [categories]="svc.categoriesList">
+</app-products-list>
