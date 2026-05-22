@@ -191,11 +191,14 @@
   <h1>Angular Examples</h1>
   <button (click)="userSelection.set($any($event.target).innerText)">Greeter</button>
   <button (click)="userSelection.set($any($event.target).innerText)">Products</button>
-  
+  <button (click)="userSelection.set($any($event.target).innerText)">Composition</button>
+
   @if (userSelection() === 'Greeter') {
     <app-greeter></app-greeter>
   } @else if (userSelection() === 'Products') {
     <app-products></app-products>
+  } @else if (userSelection() === 'Composition') {
+    <app-parent></app-parent>
   } @else {
     <div>Make your choice!</div>
   } 
