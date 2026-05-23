@@ -1,11 +1,12 @@
 import { Injectable, signal } from "@angular/core";
 import { Product } from "../models/Product";
+import { IProductsService } from "./Iproducts-services";
 
 @Injectable({
     providedIn : 'root'
 })
-export class ProductsService {
-    productNamesList = signal<Product[]>([
+export class ProductsService /*implements IProductsService*/ {
+    products = signal<Product[]>([
         // Electronics & Gadgets
         { id: "prod-001", name: "QuantumX Wireless Earbuds", category: "Electronics" },
         { id: "prod-002", name: "SonicWave Bluetooth Speaker", category: "Electronics" },
@@ -119,10 +120,10 @@ export class ProductsService {
         { id: "prod-101", name: "Pen", category: "Stationary" }
     ])
 
-    categoriesList = this.productNamesList().reduce<Set<string>>((s, p) => s.add(p.category), new Set())
+    categories = this.products().reduce<Set<string>>((s, p) => s.add(p.category), new Set())
 
     addNew(newProduct : Product){
-        newProduct.id = `prod-${this.productNamesList().length + 1}`
-        this.productNamesList.update(list => [...list, newProduct])
+        newProduct.id = `prod-${this.products().length + 1}`
+        this.products.update(list => [...list, newProduct])
     }
 }

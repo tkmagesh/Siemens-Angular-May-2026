@@ -1,11 +1,11 @@
 <h3>Products</h3>
 <hr>
-<app-products-stats [products]="svc.productNamesList()"></app-products-stats>
+<app-products-stats [products]="svc.products()"></app-products-stats>
 <app-product-editor 
-    [categories]="svc.categoriesList"
+    [categories]="svc.categories"
     (create)="onProductCreated($event)"
 ></app-product-editor>
 <app-products-list 
-    [list]="svc.productNamesList()" 
-    [categories]="svc.categoriesList">
+    [list]="svc.products()" 
+    [categories]="svc.categories">
 </app-products-list>
