@@ -1,10 +1,20 @@
 /* 
-callbacks (native)
-event emitter (implementation)
-promises (native)
-async await (native)
-observables (library)
-generators (native)
+async source
+  setTimeout (singular)
+  setInterval (stream)
+  ajax (singular)
+  server sent events (stream)
+  web sockets (stream)
+  user interaction (stream)
+
+*/
+/* 
+callbacks (native) (singular)
+event emitter (implementation) (stream)
+promises (native) (singular)
+async await (native) (singular)
+observables (library) (stream)
+generators (native) (stream)
 */
 
 (() => {
@@ -29,7 +39,7 @@ generators (native)
       setTimeout(() => {
         const result = x + y;
         console.log(`   [service] returning result`);
-        callbackFn(result);
+        setTimeout(() => callbackFn(result));
       }, 4000);
     }
 
