@@ -526,6 +526,16 @@
       "name": "Ganesh",
       "email": "ganesh@gmail.com",
       "id": "Im_6q9e_yuU"
+    },
+    {
+      "name": "User 1",
+      "email": "email 1",
+      "id": "l0chOs4f_SU"
+    },
+    {
+      "name": "User 2",
+      "email": "email 2",
+      "id": "pjkrs0opUTY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
