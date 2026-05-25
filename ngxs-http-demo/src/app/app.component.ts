@@ -3,7 +3,7 @@ import { Component, signal } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { FetchUsers, AddUser } from './state/user.actions';
-import { UserState } from './state/user.state';
+import { User, UserState } from './state/user.state';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,7 +17,10 @@ import { FormsModule } from '@angular/forms';
     <button (click)="load()">Load Users</button>
 
     <ul>
-      <li *ngFor="let u of users$ | async">{{u.name}} - {{u.email}}</li>
+      <li *ngFor="let u of users$ | async">
+        <span>{{u.name}} - {{u.email}} </span>
+        <button (click)="onUserRemove(u)">X</button>
+      </li>
     </ul>
 
     <input placeholder="New user" (input)= "name.set($any($event.target).value)" />
@@ -39,5 +42,9 @@ export class AppComponent {
 
   add() {
     this.store.dispatch(new AddUser({ name: this.name(), email : this.email() }));
+  }
+
+  onUserRemove(u : User){
+    console.log('to be removed - ', u)
   }
 }

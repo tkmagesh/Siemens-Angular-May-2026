@@ -1,0 +1,51 @@
+<form [formGroup]="userForm" (submit) = "onSubmit()" >
+    <input formControlName="name" placeholder="Name" />
+    @if (userForm.get('name')?.touched && userForm.get('name')?.invalid) {
+        <div>
+            Name is required(min 3 chars)
+        </div>
+    }
+
+    <input formControlName="email" placeholder = "Email" />
+    <br>
+    <input type="password" formControlName = "password" placeholder = "Password" />
+    <br>
+    <input type="password" formControlName = "confirmPassword" placeholder = "Confirm Password" />
+    @if (userForm.errors) {
+        <div >
+            Passwords do not match
+        </div>
+    }
+    <br>
+    <label>
+        <input type="checkbox" formControlName = "employed" />
+        Employed
+    </label>
+    <br>
+    <input formControlName="company" placeholder = "Company" />
+
+    <!--FormArray -->
+    
+    <div formArrayName="phones" >
+        @for(phone of phones.controls; let i = $index; track $index) {
+            <div [formGroupName]="i" >
+                <input formControlName="number" placeholder="Phone" />
+                <button type="button" (click)="removePhone(i)" > Remove </button>
+            </div>
+        }
+    </div>
+    <button type = "button"(click) = "addPhone()" > Add Phone </button> 
+    
+
+    <!-- Nested FormGroup -->
+    <div formGroupName="address" >
+        <input formControlName="city" placeholder = "City" />
+        <input formControlName="zip" placeholder = "ZIP" />
+    </div>
+
+    <button type ="button" (click)="loadSampleData()" > Load Sample </button>
+
+    <button type = "submit" > Submit </button>
+
+</form>
+

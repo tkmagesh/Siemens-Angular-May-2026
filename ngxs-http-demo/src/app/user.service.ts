@@ -17,4 +17,6 @@ export class UserService {
   addUser(data: any) : Observable<User>{
     return this.http.post<User>(this.base, data);
   }
+
+  // this.http.delete<User>
 }
