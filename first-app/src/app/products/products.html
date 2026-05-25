@@ -1,4 +1,5 @@
-<h3>Products</h3>
+<!-- 
+ <h3>Products</h3>
 <button (click)="onBtnGetData()">Get Data from Server</button>
 <hr>
 <app-products-stats [products]="svc.products()"></app-products-stats>
@@ -8,5 +9,11 @@
 ></app-product-editor>
 <app-products-list 
     [list]="svc.products()" 
+    [categories]="svc.categories">
+</app-products-list>
+ -->
+
+<app-products-list 
+    [list]="products$" 
     [categories]="svc.categories">
 </app-products-list>

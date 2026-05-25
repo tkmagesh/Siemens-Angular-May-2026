@@ -1,6 +1,7 @@
-import { SlicePipe } from "@angular/common";
+import { AsyncPipe, SlicePipe } from "@angular/common";
 import { Component, computed, input, signal } from "@angular/core";
 import { Product } from "../models/Product";
+import { Observable } from "rxjs";
 
 @Component({
     selector : 'app-products-list',
@@ -17,7 +18,7 @@ import { Product } from "../models/Product";
             </div>
 
             <ul>
-                @for (product of (productNames() | slice:pageStart():pageEnd()); track product.id){
+                @for (product of list() | async ; track product.id){
                     <li>{{product.name}} - [{{product.category}}]</li>
                 }
             </ul>
@@ -40,28 +41,33 @@ import { Product } from "../models/Product";
         width: 100%;
         margin-bottom: 20px;
     }`],
-    imports : [SlicePipe]
+    imports : [SlicePipe, AsyncPipe]
 })
 export class ProductsList {
 
-    list = input<Product[]>([])
+    list = input<Observable<Product[]>>()
     categories = input<Set<string>>(new Set())
     selectedCategory = signal('')
 
-    productNames = computed(() =>
+    /* productNames = computed(() =>
         this.selectedCategory() !== ''
             ? this.list().filter(p => p.category === this.selectedCategory())
             : this.list()
-    );
+    ); */
 
     
 
 
     // pagination
-    currPage = signal(1)
+    /* currPage = signal(1)
     pageSize = signal(10);
     totalPages = computed(() => this.productNames().length % this.pageSize() === 0 ? Math.floor(this.productNames().length / this.pageSize()) : Math.floor(this.productNames().length / this.pageSize()) + 1)
     pageStart = computed(() => ((this.currPage() - 1) * this.pageSize()))
-    pageEnd = computed(() => (this.currPage() * this.pageSize()) - 1)
+    pageEnd = computed(() => (this.currPage() * this.pageSize()) - 1) */
 
+    currPage = signal(1)
+    pageSize = signal(10);
+    totalPages = signal(2)
+    pageStart = signal(1)
+    pageEnd = signal(1)
 }

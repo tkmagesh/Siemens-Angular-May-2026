@@ -8,7 +8,8 @@ import { ProductsService } from './services/products-service';
 import { ProductsServiceV2 } from './services/products-service-v2';
 import { IProductsService } from './services/Iproducts-services';
 import { HttpClient } from '@angular/common/http';
-import { filter } from 'rxjs';
+import { filter, from, map, Observable } from 'rxjs';
+import { ProductsAPIService } from './services/products-api-service';
 
 @Component({
   selector: 'app-products',
@@ -16,23 +17,25 @@ import { filter } from 'rxjs';
   templateUrl: './products.html',
   styleUrl: './products.css',
   providers : [
-    { provide : ProductsService, useClass : ProductsServiceV2 }
+    ProductsAPIService
   ]
 })
 export class Products {
   
+  products$ : Observable<Product[]> = from([])
 
-  constructor(public svc : ProductsService, private http: HttpClient){
-    
+  constructor(public svc : ProductsAPIService){
+    this.products$ = this.svc
+      .getAll()
+      .pipe(map(ps => ps.filter(p => p.category === 'Electronics')))
   }
 
   onBtnGetData(){
-    this.http
-      .get<Product[]>('http://localhost:3000/products')
-      .subscribe(data => console.table(data))
+    
+      
   }
 
   onProductCreated(newProduct : Product){
-    this.svc.addNew(newProduct)
+    //this.svc.addNew(newProduct)
   }
 }

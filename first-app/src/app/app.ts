@@ -5,6 +5,7 @@ import { Products } from "./products/products";
 import { Parent } from './composition/parent';
 import { Child } from './composition/child';
 import { ProductsService } from './products/services/products-service';
+import { Users } from './users/users';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { ProductsService } from './products/services/products-service';
     RouterOutlet,
     Greeter,
     Products,
-    Parent
+    Parent,
+    Users
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
